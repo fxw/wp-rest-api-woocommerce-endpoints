@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP REST API (V2) Woocommerce endpoints
 Description: WP REST API (V2) Modifications for Woocommerce endpoints.
-Author: Oleg Kostin
+Author: Fx Wiplier
 Version: 1.1
 Author URI: http://pmr.io
 */
