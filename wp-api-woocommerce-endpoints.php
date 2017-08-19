@@ -10,17 +10,18 @@ Author URI: http://www.wiplier.com
 
 //if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-
-add_action( 'rest_api_init', 'slug_register_starship' );
-function slug_register_starship() {
-    register_rest_field( 'post',
-        'starship',
-        array(
-            'get_callback'    => 'slug_get_starship',
-            'update_callback' => null,
-            'schema'          => null,
-        )
-    );
+add_action( 'rest_api_init', 'slug_register_fields' );
+function slug_register_fields() {
+    foreach( array( 'starship', 'warship' ) as $field ) {
+        register_rest_field( 'post',
+            $field,
+            array(
+                'get_callback'    => 'slug_get_starship',
+                'update_callback' => null,
+                'schema'          => null,
+            )
+        );
+    }
 }
 
 /**
@@ -35,29 +36,6 @@ function slug_register_starship() {
 function slug_get_starship( $object, $field_name, $request ) {
     return get_post_meta( $object[ 'id' ], $field_name, true );
 }
-
-// assume there custom post_type named events
-add_action( 'rest_api_init', function() {
-    register_rest_field( 'events', 'event_date', array(
-
-        'get_callback' => function( $comment_arr ) {
-            $comment_obj = get_field('event_date', $comment_arr['id'] );
-            return $comment_obj;
-        },
-
-        'update_callback' => function( $karma, $comment_arr ) {
-            update_field('event_date', $karma, $comment_arr['id'] );
-            return true;
-        },
-
-        'schema' => array(
-            'event_date' => __( 'event_date' ),
-            'type'        => 'text'
-        ),
-
-    ));
-
-});
 
 
 
