@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package WooCommerce/API
  * @extends WC_REST_CRUD_Controller
  */
-class Marineetstamp_REST_Orders_Controller extends WC_REST_Orders_Controller {
+class Marineetstamp_REST_Orders_Controller {
 
 	/**
 	 * Endpoint namespace.
