@@ -8,6 +8,39 @@ Author URI: http://www.wiplier.com
 */
 
 
+add_action( 'rest_api_init', 'bs_add_custom_rest_fields' );
+
+function bs_add_custom_rest_fields() {
+    // schema for the bs_author_name field
+    $bs_author_name_schema = array(
+        'description'   => 'Name of the post author',
+        'type'          => 'string',
+        'context'       =>   array( 'view' )
+    );
+
+    // registering the bs_author_name field
+    register_rest_field(
+        'post',
+        'bs_author_name',
+        array(
+            'get_callback'      => 'bs_get_author_name',
+            'update_callback'   => null,
+            'schema'            => $bs_author_name_schema
+        )
+    );
+}
+
+/**
+ * Callback for retrieving author name
+ * @param  array            $object         The current post object
+ * @param  string           $field_name     The name of the field
+ * @param  WP_REST_request  $request        The current request
+ * @return string                           The name of the author
+ */
+function bs_get_author_name( $object, $field_name, $request ) {
+    return get_the_author_meta( 'display_name', $object['author'] );
+}
+
 //if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 add_action( 'rest_api_init', 'slug_register_fields' );
