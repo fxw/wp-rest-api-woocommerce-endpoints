@@ -4,11 +4,11 @@ Plugin Name: WP REST API (V2) Woocommerce endpoints
 Description: WP REST API (V2) Modifications for Woocommerce endpoints.
 Author: Fx Wiplier
 Version: 1.1
-Author URI: http://pmr.io
+Author URI: http://www.wiplier.com
 */
 
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+//if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 add_action( 'rest_api_init', 'myplugin_add_karma' );
 function myplugin_add_karma() {
