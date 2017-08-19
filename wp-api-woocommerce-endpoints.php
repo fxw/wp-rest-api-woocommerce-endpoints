@@ -8,6 +8,15 @@ Version: 1.1
 Author URI: http://www.wiplier.com
 */
 
+add_action( 'rest_api_init', function ( $server ) {
+    $server->register_route( 'foo', '/foo', array(
+        'methods'  => 'GET',
+        'callback' => function () {
+            return 'baz';
+        },
+    ) );
+} );
+
 
 //rest_api_includes();
 // Init REST API routes.
