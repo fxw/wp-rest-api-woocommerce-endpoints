@@ -38,15 +38,6 @@ function myplugin_add_karma() {
     ) );
 } ;
 
-/**
- * Check if WooCommerce is active
- **/
-if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) :
-
-    /**
-     * Check if WP REST API is active
-     **/
-    if ( in_array( 'rest-api/plugin.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) :
 
 
         if ( ! function_exists ( 'wp_rest_is_shop_init' ) ) :
@@ -194,7 +185,3 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
         endif;
 
 
-    endif;
-
-
-endif;
