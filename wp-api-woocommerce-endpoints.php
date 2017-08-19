@@ -10,33 +10,29 @@ Author URI: http://www.wiplier.com
 
 //if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-add_action( 'rest_api_init', 'myplugin_add_karma' );
-function myplugin_add_karma() {
-    register_rest_field( 'comment', 'karma', array(
+
+// assume there custom post_type named events
+add_action( 'rest_api_init', function() {
+    register_rest_field( 'events', 'event_date', array(
+
         'get_callback' => function( $comment_arr ) {
-            $comment_obj = get_comment( $comment_arr['id'] );
-            return (int) $comment_obj->comment_karma;
+            $comment_obj = get_field('event_date', $comment_arr['id'] );
+            return $comment_obj;
         },
+
         'update_callback' => function( $karma, $comment_obj ) {
-            $ret = wp_update_comment( array(
-                'comment_ID'    => $comment_obj->comment_ID,
-                'comment_karma' => $karma
-            ) );
-            if ( false === $ret ) {
-                return new WP_Error(
-                    'rest_comment_karma_failed',
-                    __( 'Failed to update comment karma.' ),
-                    array( 'status' => 500 )
-                );
-            }
+            update_field('event_date', $karma, $comment_arr['id'] );
             return true;
         },
+
         'schema' => array(
-            'description' => __( 'Comment karma.' ),
-            'type'        => 'integer'
+            'event_date' => __( 'event_date' ),
+            'type'        => 'text'
         ),
-    ) );
-} ;
+
+    ));
+
+});
 
 
 
