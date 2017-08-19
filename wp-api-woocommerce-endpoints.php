@@ -36,7 +36,7 @@ function myplugin_add_karma() {
             'type'        => 'integer'
         ),
     ) );
-} );
+} ;
 
 /**
  * Check if WooCommerce is active
