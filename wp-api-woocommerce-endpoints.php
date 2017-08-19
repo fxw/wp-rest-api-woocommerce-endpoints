@@ -72,7 +72,7 @@ function myplugin_add_karma() {
                 return wc_get_page_id( 'shop' ) === $object['id'];
             }
 
-            add_action( 'init', 'wp_rest_is_shop_init' );
+            add_action( 'rest_api_init', 'wp_rest_is_shop_init' );
 
         endif;
 
