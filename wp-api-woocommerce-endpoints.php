@@ -7,6 +7,44 @@ Version: 1.1
 Author URI: http://www.wiplier.com
 */
 
+/**
+ * Include REST API classes.
+ *
+ * @since 2.6.0
+ */
+private function rest_api_includes()
+{
+    include_once( dirname( __FILE__ ) . '/Marineetstamp_REST_Private_orders-controller.php' );
+
+
+}
+
+    public function register_rest_routes()
+{
+    // Register settings to the REST API.
+    $this->register_wp_admin_settings();
+
+    $controllers = array(
+        // v2 controllers.
+
+        'Marineetstamp_REST_Orders_Controller'
+    );
+
+    foreach ( $controllers as $controller ) {
+        $this->$controller = new $controller();
+        $this->$controller->register_routes();
+    }
+}
+
+    $args = array(
+    // other args...
+    'show_in_rest'          => true,
+    'rest_base'             => 'foo',
+    'rest_controller_class' => 'WP_REST_Posts_Controller',
+);
+
+register_post_type( 'cart', $args );
+
 
 add_action( 'rest_api_init', 'bs_add_custom_rest_fields' );
 
