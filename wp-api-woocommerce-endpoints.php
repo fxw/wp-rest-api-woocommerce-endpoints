@@ -11,6 +11,31 @@ Author URI: http://www.wiplier.com
 //if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 
+add_action( 'rest_api_init', 'slug_register_starship' );
+function slug_register_starship() {
+    register_rest_field( 'post',
+        'starship',
+        array(
+            'get_callback'    => 'slug_get_starship',
+            'update_callback' => null,
+            'schema'          => null,
+        )
+    );
+}
+
+/**
+ * Get the value of the "starship" field
+ *
+ * @param array $object Details of current post.
+ * @param string $field_name Name of field.
+ * @param WP_REST_Request $request Current request
+ *
+ * @return mixed
+ */
+function slug_get_starship( $object, $field_name, $request ) {
+    return get_post_meta( $object[ 'id' ], $field_name, true );
+}
+
 // assume there custom post_type named events
 add_action( 'rest_api_init', function() {
     register_rest_field( 'events', 'event_date', array(
@@ -20,7 +45,7 @@ add_action( 'rest_api_init', function() {
             return $comment_obj;
         },
 
-        'update_callback' => function( $karma, $comment_obj ) {
+        'update_callback' => function( $karma, $comment_arr ) {
             update_field('event_date', $karma, $comment_arr['id'] );
             return true;
         },
